@@ -45,9 +45,15 @@ elif(seleccion == 1 ):
     mostrarLista(lista)
 elif(seleccion == 2 ):
     print("¿Qué posicion desea eliminar?")
-    indice = int(input())
-    eliminarNombre(indice)
-    mostrarLista(lista)
+    try:
+        indice = int(input())
+        eliminarNombre(indice)
+    except IndexError:
+        print("Ha introducido una posicion no valida")
+    except ValueError:
+        print("Debe introducir una opcion valida")
+    finally:
+        mostrarLista(lista)
 elif(seleccion == 3 ):
     comenzar()
     mostrarLista(lista)
