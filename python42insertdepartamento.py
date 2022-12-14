@@ -21,7 +21,7 @@ print("Introduzca localidad: ")
 localidad = input()
 
 sql = "insert into DEPT values (" + numero + ",'" + nombre +"','"+localidad+ "')"
-
+#print sql -> Para ver si he concatenado bien los datos
 
 #DECLARAMOS NUESTRO CURSOR
 cursor = conexion.cursor()
@@ -36,4 +36,16 @@ print("Rowcount: " + str(filasInsertadas))
 cursor.commit()
 #cursor.rollback() Indicamos que deshaga los cambios
 cursor.close()
+
+#LOS CURSORES SE PUEDEN REUTILIZAR PARA DIFERENTES CONSULTAS (AL IGUAL QUE LA VARIABLE SQL).
+#VAMOS A REUTILIZAR ESTA MISMA VARIABLE A CONTINUACION PARA UNA CONSULTA DE SELECCION. COMO NECESITAMOS LA CONEXION ABIERTA, NO LA CERRAMOS, SOLO EL CURSOR.
+sqlselect = "SELECT * FROM DEPT"
+cursor = conexion.cursor()
+cursor.execute(sqlselect)
+print("-------------------DEPARTAMENTOS-------------------------")
+for row in cursor:
+    print(row.DNOMBRE +", "+row.LOC)
+
+cursor.close() #SI NO SE CIERRA SE RELANTIZA TODO EN UNA BBDD GRANDE DE VERDAD
+
 conexion.close()
